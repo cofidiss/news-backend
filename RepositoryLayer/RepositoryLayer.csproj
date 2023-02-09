@@ -10,10 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EntityConfigurations\" />
-    <Folder Include="Context\" />
     <Folder Include="RepositoryPattern\Interfaces\" />
-    <Folder Include="RepositoryPattern\Implemantations\" />
   </ItemGroup>
 
   <ItemGroup>
