@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using ServicesLayer.DTO.Users;
 using ServicesLayer.Services.Interfaces;
 
 namespace ApiLayer.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UsersController : Controller
     {
         public IUsers _usersService { get; set; }

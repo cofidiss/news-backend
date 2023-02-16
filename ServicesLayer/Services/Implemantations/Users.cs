@@ -26,6 +26,8 @@ namespace ServicesLayer.Services.Implemantations
         public ResponseDto SignUp(SignUpDto signUpDto)
         {
 
+            return new ResponseDto() { HasError=true,Message="sa"};
+
             var signUpModel = _mapper.Map<SignUpDto, SignUpModel>(signUpDto);
             var responseModel = _usersRepository.SignUp(signUpModel);
          var responseDto =   _mapper.Map<ResponseModel, ResponseDto > (responseModel);
