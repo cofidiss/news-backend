@@ -25,7 +25,8 @@ namespace RepositoryLayer.Context
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new UsersMap());
+            modelBuilder.HasDefaultSchema("news_schema");
+        modelBuilder.ApplyConfiguration(new UserMap());
         //modelBuilder.ApplyConfiguration(new FirmMap());
         //modelBuilder.ApplyConfiguration(new DiscountScopeMap());
         //modelBuilder.ApplyConfiguration(new DiscountCategoryMap());

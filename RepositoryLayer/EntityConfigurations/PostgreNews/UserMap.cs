@@ -9,13 +9,13 @@ using DomainLayer.Entity.Postgre;
 
 namespace RepositoryLayer.EntityConfigurations.PostgreNews
 {
-         public class UsersMap : IEntityTypeConfiguration<UsersEntity>
+         public class UserMap : IEntityTypeConfiguration<UserEntity>
         {
-            public void Configure(EntityTypeBuilder<UsersEntity> builder)
+            public void Configure(EntityTypeBuilder<UserEntity> builder)
             {
             builder.ToTable("user");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).HasColumnName("firm_id");
+            builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.UserName).HasColumnName("user_name");
             builder.Property(x => x.Password).HasColumnName("password");
             builder.Property(x => x.BirthDate).HasColumnName("birth_date");

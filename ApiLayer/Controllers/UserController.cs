@@ -1,23 +1,23 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using ServicesLayer.DTO.Users;
+using ServicesLayer.DTO.User;
 using ServicesLayer.Services.Interfaces;
 
 namespace ApiLayer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : Controller
+    public class UserController : Controller
     {
-        public IUsers _usersService { get; set; }
-        public UsersController(IUsers usersService)
+        public IUserService _userService { get; set; }
+        public UserController(IUserService userService)
         {
-            _usersService = usersService;
+            _userService = userService;
         }
         [HttpPost(nameof(SignUp))]
         public IActionResult SignUp(SignUpDto signUpDto)
         {
-            return Ok(_usersService.SignUp(signUpDto));
+            return Ok(_userService.SignUp(signUpDto));
         }
     }
 }

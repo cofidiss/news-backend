@@ -1,5 +1,5 @@
 ﻿using ServicesLayer.DTO;
-using ServicesLayer.DTO.Users;
+using ServicesLayer.DTO.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ServicesLayer.Services.Interfaces
 {
-    public interface IUsers
+    public interface IUserService
     {
         ResponseDto SignUp(SignUpDto signUpDto);
 

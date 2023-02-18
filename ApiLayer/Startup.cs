@@ -33,9 +33,10 @@ namespace ApiLayer
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddSwaggerGen();
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddMaps(typeof(IBaseService).Assembly));
-            services.AddScoped<IUsers,Users>();
+            services.AddScoped<IUserService,UserService>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddDbContext<PostgreNewsDbContext>(item => item.UseNpgsql(Configuration.GetConnectionString("PostgreNews")));
 
@@ -47,6 +48,12 @@ namespace ApiLayer
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    options.RoutePrefix = string.Empty;
+                });
             }
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseRouting();

@@ -1,5 +1,5 @@
 ﻿using DomainLayer.Model;
-using DomainLayer.Model.Users;
+using DomainLayer.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

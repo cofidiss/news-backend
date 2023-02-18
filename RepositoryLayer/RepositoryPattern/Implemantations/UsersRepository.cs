@@ -1,6 +1,6 @@
 ﻿using DomainLayer.Entity.Postgre;
 using DomainLayer.Model;
-using DomainLayer.Model.Users;
+using DomainLayer.Model.User;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Context;
 using RepositoryLayer.RepositoryPattern.Interfaces;
@@ -23,10 +23,11 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
         public ResponseModel SignUp(SignUpModel signUpModel)
         {
           var responseModel =  new ResponseModel() { HasError = false, Message = "Kullanıcı eklenmiştir." };
-            var usersEntityToInsert =   new UsersEntity() {BirthDate= signUpModel.BirthDate,CreatedBy=-1,CreationDate=DateTime.Now,
+            var usersEntityToInsert =   new UserEntity() {BirthDate= signUpModel.BirthDate,CreatedBy=-1,CreationDate=DateTime.Now,
           Email=signUpModel.Email,LastUpdateDate =null,LastUpdatedBy=null,UserName= signUpModel.UserName,Id=0,Password= signUpModel.Password
           };
             _dbContext.Add(usersEntityToInsert);
+            _dbContext.SaveChanges();
             return responseModel;
            
         }
