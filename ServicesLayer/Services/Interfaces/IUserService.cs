@@ -11,6 +11,7 @@ namespace ServicesLayer.Services.Interfaces
     public interface IUserService
     {
         ResponseDto SignUp(SignUpDto signUpDto);
+        ResponseDto Login(LoginDto loginDto);
 
     }
 }

@@ -34,5 +34,15 @@ namespace ServicesLayer.Services.Implemantations
          var responseDto =   _mapper.Map<ResponseModel, ResponseDto > (responseModel);
             return responseDto;
         }
+
+        public ResponseDto Login(LoginDto loginDto)
+        {
+            var loginModel = _mapper.Map<LoginDto, LoginModel>(loginDto);
+
+            loginModel.Password = loginModel.Password.GetHashAsHEXString();
+            var responseModel = _usersRepository.Login(loginModel);
+            var responseDto = _mapper.Map<ResponseModel, ResponseDto>(responseModel);
+            return responseDto;
+        }
     }
 }

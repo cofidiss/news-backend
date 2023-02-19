@@ -19,5 +19,11 @@ namespace ApiLayer.Controllers
         {
             return Ok(_userService.SignUp(signUpDto));
         }
+        [HttpPost(nameof(Login))]
+        public IActionResult Login(LoginDto loginDto)
+        {
+            return Ok(_userService.Login(loginDto));
+        }
+
     }
 }

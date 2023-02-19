@@ -11,5 +11,6 @@ namespace RepositoryLayer.RepositoryPattern.Interfaces
     public interface IUsersRepository
     {
       ResponseModel  SignUp(SignUpModel signUpModel);
+        ResponseModel Login(LoginModel loginModel);
     }
 }
