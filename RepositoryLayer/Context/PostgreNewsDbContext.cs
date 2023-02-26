@@ -27,7 +27,7 @@ namespace RepositoryLayer.Context
     {
             modelBuilder.HasDefaultSchema("news_schema");
         modelBuilder.ApplyConfiguration(new UserMap());
-        //modelBuilder.ApplyConfiguration(new FirmMap());
+        modelBuilder.ApplyConfiguration(new NewCommentMap());
         //modelBuilder.ApplyConfiguration(new DiscountScopeMap());
         //modelBuilder.ApplyConfiguration(new DiscountCategoryMap());
         //modelBuilder.ApplyConfiguration(new UsersMap());

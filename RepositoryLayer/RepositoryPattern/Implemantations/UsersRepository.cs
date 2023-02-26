@@ -13,10 +13,10 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.RepositoryPattern.Implemantations
 {
-    public class UsersRepository : IUsersRepository
+    public class UsersRepository : GenericRepository<UserEntity>,IUsersRepository
     {
-        public PostgreNewsDbContext _dbContext { get; set; }
-        public UsersRepository(PostgreNewsDbContext postgreNewsDbContext)
+        public DbContext _dbContext { get; set; }
+        public UsersRepository(PostgreNewsDbContext postgreNewsDbContext):base(postgreNewsDbContext)    
         {
             _dbContext = postgreNewsDbContext;
         }

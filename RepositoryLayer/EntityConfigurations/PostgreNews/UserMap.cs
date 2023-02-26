@@ -9,9 +9,9 @@ using DomainLayer.Entity.Postgre;
 
 namespace RepositoryLayer.EntityConfigurations.PostgreNews
 {
-         public class UserMap : IEntityTypeConfiguration<UserEntity>
+         public class UserMap :BaseMap<UserEntity>, IEntityTypeConfiguration<UserEntity>
         {
-            public void Configure(EntityTypeBuilder<UserEntity> builder)
+            public override void Configure(EntityTypeBuilder<UserEntity> builder)
             {
             builder.ToTable("user");
             builder.HasKey(x => x.Id);
@@ -20,10 +20,7 @@ namespace RepositoryLayer.EntityConfigurations.PostgreNews
             builder.Property(x => x.Password).HasColumnName("password");
             builder.Property(x => x.BirthDate).HasColumnName("birth_date");
             builder.Property(x => x.Email).HasColumnName("email");
-            builder.Property(x => x.LastUpdateDate).HasColumnName("last_update_date");
-            builder.Property(x => x.LastUpdatedBy).HasColumnName("last_updated_by");
-            builder.Property(x => x.CreationDate).HasColumnName("creation_date");
-            builder.Property(x => x.CreatedBy).HasColumnName("created_by");
+            base.Configure(builder); 
         }
         }
     }

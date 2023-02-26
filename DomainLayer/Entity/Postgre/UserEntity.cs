@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Entity.Postgre
 {
-    public class UserEntity
+    public class UserEntity: BaseEntity
     {
         public long Id { get; set; }
 
@@ -14,9 +14,6 @@ namespace DomainLayer.Entity.Postgre
         public string Password { get; set; }
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
-        public DateTime? LastUpdateDate { get; set; }
-        public long? LastUpdatedBy { get; set; }
-        public DateTime CreationDate { get; set; }
-        public long CreatedBy { get; set; }
+
     }
 }

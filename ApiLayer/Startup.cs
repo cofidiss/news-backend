@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RepositoryLayer.Context;
+using RepositoryLayer.RepositoryPattern;
 using RepositoryLayer.RepositoryPattern.Implemantations;
 using RepositoryLayer.RepositoryPattern.Interfaces;
 using ServicesLayer.Services.Implemantations;
@@ -33,13 +34,24 @@ namespace ApiLayer
         public void ConfigureServices(IServiceCollection services)
         {
 
+            #region Services
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<INewsCommentService, NewsCommentService>();
+            #endregion
+            #region  Repositories
+            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<INewsCommentRepository, NewsCommentRepository>();
+            #endregion
+
             services.AddSwaggerGen();
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddMaps(typeof(IBaseService).Assembly));
-            services.AddScoped<IUserService,UserService>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
+            
+         
             services.AddDbContext<PostgreNewsDbContext>(item => item.UseNpgsql(Configuration.GetConnectionString("PostgreNews")));
 
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
