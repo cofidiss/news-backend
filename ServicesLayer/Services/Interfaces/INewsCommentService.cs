@@ -11,5 +11,6 @@ namespace ServicesLayer.Services.Interfaces
     public interface INewsCommentService
     {
         Task<ResponseDto> Add(AddNewsCommentDto addNewsCommentDto);
+        Task<ResponseDto> GetCommentsForNews(long newsId);
     }
 }

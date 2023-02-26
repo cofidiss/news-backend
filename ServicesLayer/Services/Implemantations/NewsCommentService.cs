@@ -15,28 +15,49 @@ namespace ServicesLayer.Services.Implemantations
 {
     public class NewsCommentService : INewsCommentService
     {
-        INewsCommentRepository _newsCommentRepository { get;}
+        INewsCommentRepository _newsCommentRepository { get; }
         IMapper _mapper { get; }
         public NewsCommentService(INewsCommentRepository newsCommentRepository, IMapper mapper)
         {
             _newsCommentRepository = newsCommentRepository;
-            _mapper = mapper;   
+            _mapper = mapper;
         }
         public async Task<ResponseDto> Add(AddNewsCommentDto addNewsCommentDto)
         {
             var responseDto = new ResponseDto() { HasError = false, Message = "Comment is added." };
-            var addNewsCommentModel = _mapper.Map<AddNewsCommentDto, AddNewsCommentModel> (addNewsCommentDto);
+            var addNewsCommentModel = _mapper.Map<AddNewsCommentDto, AddNewsCommentModel>(addNewsCommentDto);
 
-            var newsCommentEntityToInsert = new NewsCommentEntity() {Id=0,NewsId=addNewsCommentModel.NewsId,
-            Comment= addNewsCommentModel.Comment,CreatedBy= -1 ,CreationDate=DateTime.Now,LastUpdateDate=null,LastUpdatedBy=null
+            var newsCommentEntityToInsert = new NewsCommentEntity()
+            {
+                Id = 0,
+                NewsId = addNewsCommentModel.NewsId,
+                Comment = addNewsCommentModel.Comment,
+                CreatedBy = -1,
+                CreationDate = DateTime.Now,
+                LastUpdateDate = null,
+                LastUpdatedBy = null
             };
-           
-           
-          await  _newsCommentRepository.InsertAsync(newsCommentEntityToInsert);
+
+
+            await _newsCommentRepository.InsertAsync(newsCommentEntityToInsert);
 
             return responseDto;
 
 
+        }
+
+        public async Task<ResponseDto> GetCommentsForNews(long newsId)
+        {
+            //var   NewsCommentDtoList = new List<NewsCommentDto>();
+            //  NewsCommentDtoList.Add(new NewsCommentDto() { Author = "sinan", Comment = "sinan comö" });
+            //  NewsCommentDtoList.Add(new NewsCommentDto() { Author = "ball", Comment = "ball comö" });
+
+            //  var resposnedto = new ResponseDto()
+            //  {
+            //      HasError = false, Data = NewsCommentDtoList
+            //  };
+            var  newsCommentModelList = _newsCommentRepository.GetCommentsForNews(newsId);
+            return resposnedto;
         }
     }
 }

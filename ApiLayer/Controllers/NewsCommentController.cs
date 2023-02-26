@@ -21,7 +21,11 @@ namespace ApiLayer.Controllers
         {
             return Ok(await _newsCommentService.Add(addCommentDto));
         }
-      
+        [HttpPost(nameof(GetCommentsForNews))]
+        public async Task<IActionResult> GetCommentsForNews([FromBody] long newsId)
+        {
+            return Ok(await _newsCommentService.GetCommentsForNews(newsId));
+        }
 
     }
 }
