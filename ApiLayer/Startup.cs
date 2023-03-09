@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,18 +38,22 @@ namespace ApiLayer
             #region Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<INewsCommentService, NewsCommentService>();
+            services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<INewsFileService, NewsFileService>();
             #endregion
             #region  Repositories
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<INewsCommentRepository, NewsCommentRepository>();
+            services.AddScoped<INewsRepository, NewsRepository>();
+            services.AddScoped<INewsFileRepository, NewsFileRepository>();
             #endregion
 
             services.AddSwaggerGen();
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddMaps(typeof(IBaseService).Assembly));
-            
-         
+
+            services.AddHttpContextAccessor();
             services.AddDbContext<PostgreNewsDbContext>(item => item.UseNpgsql(Configuration.GetConnectionString("PostgreNews")));
 
         
@@ -57,6 +62,24 @@ namespace ApiLayer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+         
+            app.Use(async (context, next) =>
+            {
+
+           
+                var configuration = context.RequestServices.GetRequiredService<IConfiguration>();
+                if (configuration["appBaseUrl"] == null)
+                {
+           
+                    string appBaseUrl = $"{context.Request.Scheme}://{context.Request.Host}{context.Request.PathBase}";
+                    configuration["appBaseUrl"] = appBaseUrl;
+
+                }
+         
+                await next.Invoke();
+           
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -69,6 +92,8 @@ namespace ApiLayer
             }
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseRouting();
+
+    
 
             app.UseAuthorization();
 

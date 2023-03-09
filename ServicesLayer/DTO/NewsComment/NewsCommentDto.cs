@@ -10,5 +10,6 @@ namespace ServicesLayer.DTO.NewsComment
     {
         public string Comment { get; set; }
         public string Author { get; set; }
+        public string CreationDate { get; set; }
     }
 }

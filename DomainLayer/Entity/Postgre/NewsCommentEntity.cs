@@ -12,8 +12,8 @@ namespace DomainLayer.Entity.Postgre
 
         public long NewsId { get; set; }
         public string Comment { get; set; }
+        public long? CreatedBy { get; set; }
 
-     
 
     }
 }

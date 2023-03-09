@@ -21,12 +21,20 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
 
         }
 
-        public Task<IEnumerable<NewsCommentModel>> GetCommentsForNews(long newsId)
+        public async Task<IEnumerable<NewsCommentModel>> GetCommentsForNews(long newsId)
         {
             var getCommentsForNewsQuery = from newsComment in _dbContext.Set<NewsCommentEntity>()
-                                          join user in _dbContext.Set<UserEntity>() into grp1
-                                           from user in grp1.DefaultIfEmpty()
-                                          select 
+                                          join user in _dbContext.Set<UserEntity>() on newsComment.CreatedBy equals user.Id into grp1
+                                          from user in grp1.DefaultIfEmpty()
+                                          select new NewsCommentModel() { Author = user == null ? "Anonymous": user.UserName , Comment = newsComment.Comment, CreationDate=newsComment.CreationDate };
+
+
+
+            var newsCommentModelList = await  getCommentsForNewsQuery.ToArrayAsync();
+            return newsCommentModelList;
+
+
+
 
         }
     }

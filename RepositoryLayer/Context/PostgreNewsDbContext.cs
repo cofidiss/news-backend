@@ -28,11 +28,13 @@ namespace RepositoryLayer.Context
             modelBuilder.HasDefaultSchema("news_schema");
         modelBuilder.ApplyConfiguration(new UserMap());
         modelBuilder.ApplyConfiguration(new NewCommentMap());
-        //modelBuilder.ApplyConfiguration(new DiscountScopeMap());
-        //modelBuilder.ApplyConfiguration(new DiscountCategoryMap());
-        //modelBuilder.ApplyConfiguration(new UsersMap());
+            modelBuilder.ApplyConfiguration(new NewsMap());
+            modelBuilder.ApplyConfiguration(new NewsFileMap());
+            //modelBuilder.ApplyConfiguration(new DiscountScopeMap());
+            //modelBuilder.ApplyConfiguration(new DiscountCategoryMap());
+            //modelBuilder.ApplyConfiguration(new UsersMap());
 
-        base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
     }
     }
 }

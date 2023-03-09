@@ -11,5 +11,6 @@ namespace DomainLayer.Model.NewsComment
 
         public string Comment { get; set; }
         public string Author { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 }

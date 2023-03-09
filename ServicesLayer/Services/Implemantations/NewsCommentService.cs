@@ -51,13 +51,15 @@ namespace ServicesLayer.Services.Implemantations
             //var   NewsCommentDtoList = new List<NewsCommentDto>();
             //  NewsCommentDtoList.Add(new NewsCommentDto() { Author = "sinan", Comment = "sinan comö" });
             //  NewsCommentDtoList.Add(new NewsCommentDto() { Author = "ball", Comment = "ball comö" });
-
-            //  var resposnedto = new ResponseDto()
-            //  {
-            //      HasError = false, Data = NewsCommentDtoList
-            //  };
-            var  newsCommentModelList = _newsCommentRepository.GetCommentsForNews(newsId);
-            return resposnedto;
+;
+            var  newsCommentModelList = await _newsCommentRepository.GetCommentsForNews(newsId);
+       var newsCommentDtoList =    _mapper.Map<IEnumerable<NewsCommentModel>,IEnumerable<NewsCommentDto>>(newsCommentModelList);
+            var responseDto = new ResponseDto()
+            {
+                HasError = false,
+                Data = newsCommentDtoList
+            };
+            return responseDto;
         }
     }
 }

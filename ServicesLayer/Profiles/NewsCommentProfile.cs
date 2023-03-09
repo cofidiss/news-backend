@@ -17,6 +17,7 @@ namespace ServicesLayer.Profiles
         public NewsCommentProfile()
         {
             CreateMap<AddNewsCommentDto, AddNewsCommentModel>();
+            CreateMap<NewsCommentModel, NewsCommentDto>().ForMember(dest => dest.CreationDate, act => act.MapFrom(src => src.CreationDate.ToString()));
         }
     }
 }
