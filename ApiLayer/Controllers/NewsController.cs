@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using ServicesLayer.DTO.News;
 using ServicesLayer.Services.Interfaces;
 using System.Threading.Tasks;
 
@@ -25,11 +26,14 @@ namespace ApiLayer.Controllers
         }
         [HttpGet(nameof(GetNewsAndMetaData))]
         public async Task<IActionResult> GetNewsAndMetaData(long id)
-        {
-
-    
-
+        {            
             return Ok( await  _newsService.GetNewsAndMetaData(id));
+        }
+        [HttpPost(nameof(AddNews))]
+        public async Task<IActionResult> AddNews(AddNewsDto addNewsDto)
+        {
+        
+            return Ok(await _newsService.AddNews(addNewsDto));
         }
     }
 }

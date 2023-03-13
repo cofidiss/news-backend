@@ -1,4 +1,5 @@
-﻿using DomainLayer.Model.News;
+﻿using DomainLayer.Model;
+using DomainLayer.Model.News;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace RepositoryLayer.RepositoryPattern.Interfaces
     public interface INewsRepository
     {
         Task<NewsAndMetaDataModel> GetNewsAndMetaData(long id);
+        Task<ResponseModel> AddNews(AddNewsModel addNewsModel);
     }
 }

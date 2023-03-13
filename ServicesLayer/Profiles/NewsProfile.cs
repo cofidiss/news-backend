@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DomainLayer.Entity.Postgre;
 using DomainLayer.Model.News;
+using DomainLayer.Model.NewsFile;
 using ServicesLayer.DTO.News;
 using ServicesLayer.DTO.NewsFile;
 using System;
@@ -18,7 +19,10 @@ namespace ServicesLayer.Profiles
         {
             CreateMap<NewsAndMetaDataModel, NewsAndMetaDataDto>();
             CreateMap<NewsFileEntity, NewsFileDto>();
-            
+            CreateMap<AddNewsFileDto, AddNewsFileModel>();
+            CreateMap<AddNewsDto, AddNewsModel>();
+
+
         }
     
 

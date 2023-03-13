@@ -15,7 +15,8 @@ namespace ServicesLayer.Profiles
         
             {
                 CreateMap<NewsFileMetaDataModel, NewsFileMetaDataDto>();
-
+            CreateMap< AddNewsFileDto,AddNewsFileModel>();
+            
             }
     }
 }

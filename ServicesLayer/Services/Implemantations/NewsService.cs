@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using DomainLayer.Model;
 using DomainLayer.Model.News;
 using RepositoryLayer.RepositoryPattern.Interfaces;
+using ServicesLayer.DTO;
 using ServicesLayer.DTO.News;
 using ServicesLayer.Services.Interfaces;
 using System;
@@ -26,6 +28,15 @@ namespace ServicesLayer.Services.Implemantations
          var newsAndMetaDataModel =   await  _newsRepository.GetNewsAndMetaData(id);
         var newsAndMetaDataDto =   _mapper.Map<NewsAndMetaDataModel, NewsAndMetaDataDto > (newsAndMetaDataModel);
             return newsAndMetaDataDto;
+        }
+
+        public async Task<ResponseDto> AddNews(AddNewsDto addNewsDto)
+        {
+            var addNewsModel = _mapper.Map<AddNewsDto, AddNewsModel>(addNewsDto);
+            var responseModel =  await _newsRepository.AddNews(addNewsModel);
+            var responseDto = _mapper.Map<ResponseModel, ResponseDto>(responseModel);
+            return responseDto;
+
         }
     }
 }

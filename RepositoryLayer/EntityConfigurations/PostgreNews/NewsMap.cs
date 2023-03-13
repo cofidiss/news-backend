@@ -20,7 +20,7 @@ namespace RepositoryLayer.EntityConfigurations.PostgreNews
             builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.CategoryId).HasColumnName("category_id");
             builder.Property(x => x.Header).HasColumnName("header");
-            builder.Property(x => x.Text).HasColumnName("text");
+            builder.Property(x => x.Body).HasColumnName("body");
             base.Configure(builder);
         }
     }

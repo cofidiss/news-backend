@@ -10,7 +10,7 @@ namespace DomainLayer.Entity.Postgre
     {
         public long Id { get; set; }
         public long CategoryId { get; set; }
-        public string Text { get; set; }
+        public string Body { get; set; }
         public string Header { get; set; }
 
     }

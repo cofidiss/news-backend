@@ -1,4 +1,5 @@
-﻿using ServicesLayer.DTO.News;
+﻿using ServicesLayer.DTO;
+using ServicesLayer.DTO.News;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace ServicesLayer.Services.Interfaces
     {
 
         Task<NewsAndMetaDataDto> GetNewsAndMetaData(long id);
+        Task<ResponseDto> AddNews(AddNewsDto addNewsDto);
     }
 }
