@@ -26,6 +26,7 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
             var getCommentsForNewsQuery = from newsComment in _dbContext.Set<NewsCommentEntity>()
                                           join user in _dbContext.Set<UserEntity>() on newsComment.CreatedBy equals user.Id into grp1
                                           from user in grp1.DefaultIfEmpty()
+                                          where newsComment.NewsId == newsId
                                           select new NewsCommentModel() { Author = user == null ? "Anonymous": user.UserName , Comment = newsComment.Comment, CreationDate=newsComment.CreationDate };
 
 
