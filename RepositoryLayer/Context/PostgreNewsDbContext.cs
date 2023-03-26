@@ -30,6 +30,7 @@ namespace RepositoryLayer.Context
         modelBuilder.ApplyConfiguration(new NewCommentMap());
             modelBuilder.ApplyConfiguration(new NewsMap());
             modelBuilder.ApplyConfiguration(new NewsFileMap());
+            modelBuilder.ApplyConfiguration(new CategoryMap());
             //modelBuilder.ApplyConfiguration(new DiscountScopeMap());
             //modelBuilder.ApplyConfiguration(new DiscountCategoryMap());
             //modelBuilder.ApplyConfiguration(new UsersMap());

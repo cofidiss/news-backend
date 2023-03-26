@@ -1,4 +1,5 @@
-﻿using ServicesLayer.DTO;
+﻿using DomainLayer.Model.News;
+using ServicesLayer.DTO;
 using ServicesLayer.DTO.News;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace ServicesLayer.Services.Interfaces
 
         Task<NewsAndMetaDataDto> GetNewsAndMetaData(long id);
         Task<ResponseDto> AddNews(AddNewsDto addNewsDto);
+        Task<IEnumerable<NewsListForCategoryDto>> GetNewsListForCategory(long categoryId);
+
     }
 }

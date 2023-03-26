@@ -21,7 +21,8 @@ namespace ServicesLayer.Profiles
             CreateMap<NewsFileEntity, NewsFileDto>();
             CreateMap<AddNewsFileDto, AddNewsFileModel>();
             CreateMap<AddNewsDto, AddNewsModel>();
-
+            CreateMap<NewsListForCategoryModel, NewsListForCategoryDto>();
+            
 
         }
     

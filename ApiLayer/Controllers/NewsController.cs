@@ -35,5 +35,11 @@ namespace ApiLayer.Controllers
         
             return Ok(await _newsService.AddNews(addNewsDto));
         }
+        [HttpGet(nameof(GetNewsListForCategory))]
+        public async Task<IActionResult> GetNewsListForCategory(long categoryId)
+        {
+
+            return Ok(await _newsService.GetNewsListForCategory(categoryId));
+        }
     }
 }

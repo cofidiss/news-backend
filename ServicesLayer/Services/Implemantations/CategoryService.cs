@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using RepositoryLayer.RepositoryPattern.Interfaces;
 using ServicesLayer.DTO.Category;
 using ServicesLayer.Services.Interfaces;
@@ -20,9 +21,32 @@ namespace ServicesLayer.Services.Implemantations
             _categoryRepository = categoryRepository;
             _mapper = mapper;
         }
-        public Task<IEnumerable<CategoriesForNavBarDto>> GetCategoriesForNavBar()
+        public async Task<IEnumerable<CategoriesForNavBarDto>> GetCategoriesForNavBar()
         {
-            
+          var categoryEntities = await _categoryRepository.FilterAsync(x=> true);
+            IList<CategoriesForNavBarDto> categoriesForNavBarDtoList = new List<CategoriesForNavBarDto>();
+
+        var parentCategories = categoryEntities.Where(x => x.ParentId == null);
+
+            foreach (var parentCategory in parentCategories)
+            {
+
+                var categoriesForNavBarDtoParent = new CategoriesForNavBarDto() { Id = parentCategory.Id, Name = parentCategory.Name };
+
+
+                IList<CategoriesForNavBarDto> categoriesForNavBarDtoChildrenList = new List<CategoriesForNavBarDto>();
+                categoriesForNavBarDtoParent.Children = categoriesForNavBarDtoChildrenList;
+                var children = categoryEntities.Where(x => x.ParentId == parentCategory.Id).ToList();
+                foreach (var child in children)
+                {
+                    var categoriesForNavBarDtoChild = new CategoriesForNavBarDto() { Id = child.Id, Name = child.Name };
+                    categoriesForNavBarDtoChildrenList.Add(categoriesForNavBarDtoChild);
+ 
+                }
+
+                categoriesForNavBarDtoList.Add(categoriesForNavBarDtoParent);
+            }
+            return categoriesForNavBarDtoList;
         }
     }
 }

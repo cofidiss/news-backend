@@ -1,4 +1,5 @@
 ﻿using DomainLayer.Entity.Postgre;
+
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Context;
 using RepositoryLayer.RepositoryPattern.Interfaces;
@@ -18,5 +19,7 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
             _dbContext = dbContext;
 
         }
+
+      
     }
 }

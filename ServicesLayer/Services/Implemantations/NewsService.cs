@@ -38,5 +38,12 @@ namespace ServicesLayer.Services.Implemantations
             return responseDto;
 
         }
+
+        public async Task<IEnumerable<NewsListForCategoryDto>> GetNewsListForCategory(long categoryId)
+        {
+            var newsListForCategoryModelList  = await _newsRepository.GetNewsListForCategory(categoryId);
+            var newsListForCategoryDtoList = _mapper.Map< IEnumerable<NewsListForCategoryModel>, IEnumerable<NewsListForCategoryDto>>(newsListForCategoryModelList);
+            return newsListForCategoryDtoList;
+        }
     }
 }

@@ -40,6 +40,7 @@ namespace ApiLayer
             services.AddScoped<INewsCommentService, NewsCommentService>();
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<INewsFileService, NewsFileService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             #endregion
             #region  Repositories
             services.AddScoped<IUsersRepository, UsersRepository>();
@@ -47,6 +48,7 @@ namespace ApiLayer
             services.AddScoped<INewsCommentRepository, NewsCommentRepository>();
             services.AddScoped<INewsRepository, NewsRepository>();
             services.AddScoped<INewsFileRepository, NewsFileRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             #endregion
 
             services.AddSwaggerGen();

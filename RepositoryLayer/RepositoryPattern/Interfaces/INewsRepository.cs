@@ -12,5 +12,7 @@ namespace RepositoryLayer.RepositoryPattern.Interfaces
     {
         Task<NewsAndMetaDataModel> GetNewsAndMetaData(long id);
         Task<ResponseModel> AddNews(AddNewsModel addNewsModel);
+
+        Task<IEnumerable<NewsListForCategoryModel>> GetNewsListForCategory(long categoryId);
     }
 }

@@ -126,6 +126,18 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
             }
             return responseModel;
         }
+
+
+
+        public async Task<IEnumerable<NewsListForCategoryModel>> GetNewsListForCategory(long categoryId)
+        {
+
+            var newsListQuery = from news in _dbContext.Set<NewsEntity>()
+                                           where news.CategoryId == categoryId
+                                           select new NewsListForCategoryModel() { Id = news.Id, Header = news.Header,UploadDate=news.CreationDate };
+            var newsListForCategoryModelList = await newsListQuery.ToArrayAsync();
+            return newsListForCategoryModelList;
+        }
     }
 }
 
