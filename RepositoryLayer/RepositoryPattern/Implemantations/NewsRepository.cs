@@ -131,10 +131,12 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
 
         public async Task<IEnumerable<NewsListForCategoryModel>> GetNewsListForCategory(long categoryId)
         {
-
+           var chilcategoryIds =  (from category in _dbContext.Set<CategoryEntity>()
+             where category.ParentId == categoryId
+             select category.Id).ToArray();
             var newsListQuery = from news in _dbContext.Set<NewsEntity>()
-                                           where news.CategoryId == categoryId
-                                           select new NewsListForCategoryModel() { Id = news.Id, Header = news.Header,UploadDate=news.CreationDate };
+                                           where news.CategoryId == categoryId || chilcategoryIds.Contains(news.CategoryId)
+                                select new NewsListForCategoryModel() { Id = news.Id, Header = news.Header,UploadDate=news.CreationDate };
             var newsListForCategoryModelList = await newsListQuery.ToArrayAsync();
             return newsListForCategoryModelList;
         }
