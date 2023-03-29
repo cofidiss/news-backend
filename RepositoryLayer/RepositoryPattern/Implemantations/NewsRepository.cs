@@ -140,6 +140,13 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
             var newsListForCategoryModelList = await newsListQuery.ToArrayAsync();
             return newsListForCategoryModelList;
         }
+
+        public async Task<ResponseModel> DeleteNewsAndFiles(long newsId)
+        {
+            var transaction = await _dbContext.Database.BeginTransactionAsync();
+            var responseModel = new ResponseModel() { HasError = false, Message = "News Deleted." };
+
+        }
     }
 }
 

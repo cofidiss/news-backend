@@ -15,6 +15,6 @@ namespace ServicesLayer.Services.Interfaces
         Task<NewsAndMetaDataDto> GetNewsAndMetaData(long id);
         Task<ResponseDto> AddNews(AddNewsDto addNewsDto);
         Task<IEnumerable<NewsListForCategoryDto>> GetNewsListForCategory(long categoryId);
-
+        Task<ResponseDto> DeleteNewsAndFiles(long newsId);
     }
 }

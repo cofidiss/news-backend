@@ -44,5 +44,11 @@ namespace ServicesLayer.Services.Implemantations
             var responseDto = _mapper.Map<ResponseModel, ResponseDto>(responseModel);
             return responseDto;
         }
+
+        public async Task<bool> IsCategoryAdmin(long categoryId)
+        {
+            //return false;
+            return true;
+        }
     }
 }

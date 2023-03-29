@@ -14,5 +14,6 @@ namespace RepositoryLayer.RepositoryPattern.Interfaces
         Task<ResponseModel> AddNews(AddNewsModel addNewsModel);
 
         Task<IEnumerable<NewsListForCategoryModel>> GetNewsListForCategory(long categoryId);
+        Task<ResponseModel> DeleteNewsAndFiles(long newsId);
     }
 }

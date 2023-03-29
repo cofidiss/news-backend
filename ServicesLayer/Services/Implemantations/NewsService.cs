@@ -45,5 +45,13 @@ namespace ServicesLayer.Services.Implemantations
             var newsListForCategoryDtoList = _mapper.Map< IEnumerable<NewsListForCategoryModel>, IEnumerable<NewsListForCategoryDto>>(newsListForCategoryModelList);
             return newsListForCategoryDtoList;
         }
+
+        public Task<ResponseDto> DeleteNewsAndFiles(long newsId)
+        {
+            
+            var responseModel = await _newsRepository.DeleteNewsAndFiles(newsId);
+            var responseDto = _mapper.Map<ResponseModel, ResponseDto>(responseModel);
+            return responseDto;
+        }
     }
 }

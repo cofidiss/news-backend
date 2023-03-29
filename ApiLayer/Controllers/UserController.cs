@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ServicesLayer.DTO.User;
 using ServicesLayer.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace ApiLayer.Controllers
 {
@@ -24,6 +25,10 @@ namespace ApiLayer.Controllers
         {
             return Ok(_userService.Login(loginDto));
         }
-
+        [HttpPost(nameof(IsCategoryAdmin))]
+        public async Task<IActionResult> IsCategoryAdmin(long categoryId)
+        {
+            return Ok(await _userService.IsCategoryAdmin(categoryId));
+        }
     }
 }

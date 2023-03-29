@@ -12,6 +12,6 @@ namespace ServicesLayer.Services.Interfaces
     {
         ResponseDto SignUp(SignUpDto signUpDto);
         ResponseDto Login(LoginDto loginDto);
-
+        Task<bool> IsCategoryAdmin(long categoryId);
     }
 }
