@@ -10,5 +10,6 @@ namespace ServicesLayer.Services.Interfaces
     public interface ICategoryService
     {
         Task<IEnumerable<CategoriesForNavBarDto>> GetCategoriesForNavBar();
+        Task<IEnumerable<CategoryLovDto>> GetCategoryLov();
     }
 }

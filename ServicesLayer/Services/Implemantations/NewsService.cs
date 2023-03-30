@@ -46,7 +46,7 @@ namespace ServicesLayer.Services.Implemantations
             return newsListForCategoryDtoList;
         }
 
-        public Task<ResponseDto> DeleteNewsAndFiles(long newsId)
+        public async Task<ResponseDto> DeleteNewsAndFiles(long newsId)
         {
             
             var responseModel = await _newsRepository.DeleteNewsAndFiles(newsId);

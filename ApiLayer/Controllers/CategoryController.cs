@@ -19,5 +19,10 @@ namespace ApiLayer.Controllers
         {
             return Ok(await _categoryService.GetCategoriesForNavBar());
         }
+        [HttpGet(nameof(GetCategoryLov))]
+        public async Task<IActionResult> GetCategoryLov()
+        {
+            return Ok(await _categoryService.GetCategoryLov());
+        }
     }
 }

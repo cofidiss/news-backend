@@ -143,8 +143,40 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
 
         public async Task<ResponseModel> DeleteNewsAndFiles(long newsId)
         {
-            var transaction = await _dbContext.Database.BeginTransactionAsync();
             var responseModel = new ResponseModel() { HasError = false, Message = "News Deleted." };
+            var transaction = await _dbContext.Database.BeginTransactionAsync();
+     
+            try
+            {
+                var newsListQuery = from news in _dbContext.Set<NewsEntity>()
+                                    where news.Id == newsId
+                                    select new NewsEntity() { Id=news.Id};
+                var newsFileListQuery = from newsFile in _dbContext.Set<NewsFileEntity>()
+                                    where newsFile.NewsId == newsId
+                                    select new NewsFileEntity() { Id = newsFile.Id };
+                var newsListToRemove = await newsListQuery.ToArrayAsync();
+                var newsFileListToRemove = await newsFileListQuery.ToArrayAsync();
+                _dbContext.RemoveRange(newsListToRemove);
+                _dbContext.RemoveRange(newsFileListToRemove);
+                await _dbContext.SaveChangesAsync();
+               await transaction.CommitAsync();
+            }
+
+
+
+
+            finally
+            {
+                if (transaction == null)
+                {
+                
+
+                }
+              await  transaction.DisposeAsync();
+
+
+            }
+                  return responseModel;
 
         }
     }

@@ -41,7 +41,7 @@ namespace ApiLayer.Controllers
 
             return Ok(await _newsService.GetNewsListForCategory(categoryId));
         }
-        [HttpGet(nameof(GetNewsListForCategory))]
+        [HttpPost(nameof(DeleteNewsAndFiles))]
         public async Task<IActionResult> DeleteNewsAndFiles(long newsId)
         {
 

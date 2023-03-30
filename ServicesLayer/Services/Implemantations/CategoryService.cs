@@ -48,5 +48,33 @@ namespace ServicesLayer.Services.Implemantations
             }
             return categoriesForNavBarDtoList;
         }
+
+        public async Task<IEnumerable<CategoryLovDto>> GetCategoryLov()
+        {
+            var categoryEntities = await _categoryRepository.FilterAsync(x => true);
+            IList<CategoryLovDto> categoryLovDtoList = new List<CategoryLovDto>();
+
+            var parentCategories = categoryEntities.Where(x => x.ParentId == null);
+
+            foreach (var parentCategory in parentCategories)
+            {
+
+                var categoryLovParent = new CategoryLovDto() { Id = parentCategory.Id, Name = parentCategory.Name };
+
+
+                IList<CategoryLovDto> categoryLovDtoChildrenList = new List<CategoryLovDto>();
+                categoryLovParent.Children = categoryLovDtoChildrenList;
+                var children = categoryEntities.Where(x => x.ParentId == parentCategory.Id).ToList();
+                foreach (var child in children)
+                {
+                    var categoryLovChild = new CategoryLovDto() { Id = child.Id, Name = child.Name };
+                    categoryLovDtoChildrenList.Add(categoryLovChild);
+
+                }
+
+                categoryLovDtoList.Add(categoryLovParent);
+            }
+            return categoryLovDtoList;
+        }
     }
 }
