@@ -11,5 +11,6 @@ namespace ServicesLayer.Services.Interfaces
     {
         Task<IEnumerable<CategoriesForNavBarDto>> GetCategoriesForNavBar();
         Task<IEnumerable<CategoryLovDto>> GetCategoryLov();
+        Task<IEnumerable<CategoryListForCRUDDto>> GetCategoryListForCRUD();
     }
 }

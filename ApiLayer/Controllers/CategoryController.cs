@@ -24,5 +24,11 @@ namespace ApiLayer.Controllers
         {
             return Ok(await _categoryService.GetCategoryLov());
         }
+        [HttpGet(nameof(GetCategoryListForCRUD))]
+        public async Task<IActionResult> GetCategoryListForCRUD()
+        {
+            return Ok(await _categoryService.GetCategoryListForCRUD());
+        }
+        
     }
 }

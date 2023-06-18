@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using DomainLayer.Model.Category;
 using RepositoryLayer.RepositoryPattern.Interfaces;
 using ServicesLayer.DTO.Category;
 using ServicesLayer.Services.Interfaces;
@@ -76,5 +76,15 @@ namespace ServicesLayer.Services.Implemantations
             }
             return categoryLovDtoList;
         }
+
+         async Task<IEnumerable<CategoryListForCRUDDto>> ICategoryService.GetCategoryListForCRUD()
+        {
+          var CategoryListForCRUDModelList =   await   _categoryRepository.GetCategoryListForCRUD();
+         var categoryListForCRUDDtoList =   _mapper.Map<IEnumerable<CategoryListForCRUDModel>, IEnumerable< CategoryListForCRUDDto> > (CategoryListForCRUDModelList);
+
+            return categoryListForCRUDDtoList;
+        }
+
+   
     }
 }
