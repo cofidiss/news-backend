@@ -14,8 +14,7 @@ namespace ServicesLayer.Profiles
 
         public CategoryProfile()
         {
-            CreateMap<CategoryListForCRUDDto, CategoryListForCRUDModel>();
-
+            CreateMap< CategoryListForCRUDModel,CategoryListForCRUDDto > ();
 
         }
     }
