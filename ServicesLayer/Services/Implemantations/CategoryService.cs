@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DomainLayer.Model.Category;
 using RepositoryLayer.RepositoryPattern.Interfaces;
+using ServicesLayer.DTO;
 using ServicesLayer.DTO.Category;
 using ServicesLayer.Services.Interfaces;
 using System;
@@ -85,6 +86,32 @@ namespace ServicesLayer.Services.Implemantations
             return categoryListForCRUDDtoList;
         }
 
-   
+        Task<IEnumerable<CategoriesForNavBarDto>> ICategoryService.GetCategoriesForNavBar()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<CategoryLovDto>> ICategoryService.GetCategoryLov()
+        {
+            throw new NotImplementedException();
+        }
+
+        async Task<ResponseDto> ICategoryService.DeleteCategory(long id)
+        {
+            var responseDto = new ResponseDto() { HasError = false, Message = "Deleted Succedfully" };
+
+         var categoryEntities =   await  _categoryRepository.FilterAsync(x => x.Id.Equals(id));
+            if (categoryEntities.Count() == 0)
+            {
+                responseDto.HasError = true;
+                responseDto.Message = "could not find category to delete";
+                return responseDto;
+            }
+            
+          
+            await _categoryRepository.DeleteAsync(categoryEntities.First());
+            return responseDto;
+
+        }
     }
 }

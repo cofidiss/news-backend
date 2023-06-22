@@ -1,4 +1,5 @@
-﻿using ServicesLayer.DTO.Category;
+﻿using ServicesLayer.DTO;
+using ServicesLayer.DTO.Category;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace ServicesLayer.Services.Interfaces
         Task<IEnumerable<CategoriesForNavBarDto>> GetCategoriesForNavBar();
         Task<IEnumerable<CategoryLovDto>> GetCategoryLov();
         Task<IEnumerable<CategoryListForCRUDDto>> GetCategoryListForCRUD();
+        Task<ResponseDto> DeleteCategory(long id);
     }
 }

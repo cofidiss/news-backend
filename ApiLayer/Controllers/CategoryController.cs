@@ -29,6 +29,12 @@ namespace ApiLayer.Controllers
         {
             return Ok(await _categoryService.GetCategoryListForCRUD());
         }
+        [HttpPost(nameof(DeleteCategory))]
+        public async Task<IActionResult> DeleteCategory(long id)
+        {
+            return Ok(await _categoryService.DeleteCategory(id));
+        }
         
+
     }
 }
