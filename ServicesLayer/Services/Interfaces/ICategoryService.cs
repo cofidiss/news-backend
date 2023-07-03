@@ -14,5 +14,6 @@ namespace ServicesLayer.Services.Interfaces
         Task<IEnumerable<CategoryLovDto>> GetCategoryLov();
         Task<IEnumerable<CategoryListForCRUDDto>> GetCategoryListForCRUD();
         Task<ResponseDto> DeleteCategory(long id);
+        Task<ResponseDto> UpdateCategory(UpdateCategoryDto updateCategoryDto);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServicesLayer.DTO.Category;
 using ServicesLayer.Services.Interfaces;
 using System.Threading.Tasks;
 
@@ -34,7 +35,12 @@ namespace ApiLayer.Controllers
         {
             return Ok(await _categoryService.DeleteCategory(id));
         }
-        
+        [HttpPost(nameof(UpdateCategory))]
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
+        {
+            return Ok(await _categoryService.UpdateCategory(updateCategoryDto));
+        }
+
 
     }
 }

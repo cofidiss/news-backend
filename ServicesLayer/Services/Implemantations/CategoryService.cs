@@ -86,19 +86,19 @@ namespace ServicesLayer.Services.Implemantations
             return categoryListForCRUDDtoList;
         }
 
-        Task<IEnumerable<CategoriesForNavBarDto>> ICategoryService.GetCategoriesForNavBar()
-        {
-            throw new NotImplementedException();
-        }
+        //Task<IEnumerable<CategoriesForNavBarDto>> ICategoryService.GetCategoriesForNavBar()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        Task<IEnumerable<CategoryLovDto>> ICategoryService.GetCategoryLov()
-        {
-            throw new NotImplementedException();
-        }
+        //Task<IEnumerable<CategoryLovDto>> ICategoryService.GetCategoryLov()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         async Task<ResponseDto> ICategoryService.DeleteCategory(long id)
         {
-            var responseDto = new ResponseDto() { HasError = false, Message = "Deleted Succedfully" };
+            var responseDto = new ResponseDto() { HasError = false, Message = "Deleted Succesfully" };
 
          var categoryEntities =   await  _categoryRepository.FilterAsync(x => x.Id.Equals(id));
             if (categoryEntities.Count() == 0)
@@ -111,6 +111,28 @@ namespace ServicesLayer.Services.Implemantations
           
             await _categoryRepository.DeleteAsync(categoryEntities.First());
             return responseDto;
+
+        }
+
+        public async Task<ResponseDto> UpdateCategory(UpdateCategoryDto updateCategoryDto)
+        {
+            var responseDto = new ResponseDto() { HasError = false, Message = "Updated Succesfully" };
+
+            var categoryEntities = await _categoryRepository.FilterAsync(x => x.Id.Equals(updateCategoryDto.Id));
+            if (categoryEntities.Count() == 0)
+            {
+                responseDto.HasError = true;
+                responseDto.Message = "could not find category to update";
+                return responseDto;
+            }
+            var categoryEntityToUpdate = categoryEntities.First();
+                categoryEntityToUpdate.Name = updateCategoryDto.Name;
+            categoryEntityToUpdate.ParentId= updateCategoryDto.ParentId;
+            categoryEntityToUpdate.LastUpdatedBy = -1; // ? düzelt
+                categoryEntityToUpdate.LastUpdateDate = DateTime.Now;
+            await _categoryRepository.UpdateAsync(categoryEntityToUpdate);
+            return responseDto;
+
 
         }
     }

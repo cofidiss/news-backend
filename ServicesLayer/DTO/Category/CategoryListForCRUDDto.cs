@@ -12,5 +12,6 @@ namespace ServicesLayer.DTO.Category
         public long Id { get; set; }
         public string Name { get; set; }
         public string ParentName { get; set; }
+        public long? ParentId { get; set; }
     }
 }

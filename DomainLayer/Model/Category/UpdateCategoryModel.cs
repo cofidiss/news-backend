@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Model.Category
 {
-    public class CategoryListForCRUDModel
+    public class UpdateCategoryModel
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public string ParentName { get; set; }
         public long? ParentId { get; set; }
     }
 }

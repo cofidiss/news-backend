@@ -25,7 +25,7 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
             var categoryListForCRUDQuery = from category1 in _dbContext.Set<CategoryEntity>()
                                 join category2 in _dbContext.Set<CategoryEntity>() on category1.ParentId equals category2.Id into group1
                                 from category2 in group1.DefaultIfEmpty()                                
-                                select new CategoryListForCRUDModel() { Id = category1.Id, Name = category1.Name, ParentName = category2 == null ? null: category2.Name };
+                                select new CategoryListForCRUDModel() { Id = category1.Id, Name = category1.Name, ParentName = category2 == null ? null: category2.Name,ParentId= category1.ParentId };
         return   await categoryListForCRUDQuery.ToArrayAsync();
 
 
