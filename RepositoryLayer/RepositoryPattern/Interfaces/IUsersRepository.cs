@@ -12,6 +12,6 @@ namespace RepositoryLayer.RepositoryPattern.Interfaces
     public interface IUsersRepository: IGenericRepository<UserEntity>
     {
       ResponseModel  SignUp(SignUpModel signUpModel);
-        ResponseModel Login(LoginModel loginModel);
+        LoginResultModel Login(LoginModel loginModel);
     }
 }

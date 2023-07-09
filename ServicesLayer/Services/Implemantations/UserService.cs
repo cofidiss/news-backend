@@ -2,6 +2,9 @@
 using DomainLayer.Extension;
 using DomainLayer.Model;
 using DomainLayer.Model.User;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Authentication;
 using RepositoryLayer.RepositoryPattern.Interfaces;
 using ServicesLayer.DTO;
 using ServicesLayer.DTO.User;
@@ -9,6 +12,7 @@ using ServicesLayer.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,10 +22,12 @@ namespace ServicesLayer.Services.Implemantations
     {
         public IUsersRepository _usersRepository { get; set; }
         public IMapper _mapper { get; set; }
-        public UserService(IUsersRepository usersRepository, IMapper mapper)
+        IHttpContextAccessor _httpContextAccessor { get; set; }
+        public UserService(IUsersRepository usersRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
             _usersRepository = usersRepository;
+            _httpContextAccessor = httpContextAccessor;
 
         }
         public ResponseDto SignUp(SignUpDto signUpDto)
@@ -35,14 +41,15 @@ namespace ServicesLayer.Services.Implemantations
             return responseDto;
         }
 
-        public ResponseDto Login(LoginDto loginDto)
+        public LoginResultModel Login(LoginDto loginDto)
         {
             var loginModel = _mapper.Map<LoginDto, LoginModel>(loginDto);
-
+           
             loginModel.Password = loginModel.Password.GetHashAsHEXString();
-            var responseModel = _usersRepository.Login(loginModel);
-            var responseDto = _mapper.Map<ResponseModel, ResponseDto>(responseModel);
-            return responseDto;
+            var loginResultModel = _usersRepository.Login(loginModel);
+          
+           
+            return loginResultModel;
         }
 
         public async Task<bool> IsCategoryAdmin(long categoryId)

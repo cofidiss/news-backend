@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -57,14 +58,16 @@ namespace ApiLayer
 
             services.AddHttpContextAccessor();
             services.AddDbContext<PostgreNewsDbContext>(item => item.UseNpgsql(Configuration.GetConnectionString("PostgreNews")));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => { options.ExpireTimeSpan = TimeSpan.FromMinutes(20); options.SlidingExpiration = true; });
 
-        
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-         
+
+
             app.Use(async (context, next) =>
             {
 
@@ -95,8 +98,8 @@ namespace ApiLayer
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseRouting();
 
-    
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

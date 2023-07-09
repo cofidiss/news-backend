@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ServicesLayer.DTO.Category;
 using ServicesLayer.Services.Interfaces;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ApiLayer.Controllers
@@ -35,9 +37,11 @@ namespace ApiLayer.Controllers
         {
             return Ok(await _categoryService.DeleteCategory(id));
         }
+  
         [HttpPost(nameof(UpdateCategory))]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
+
             return Ok(await _categoryService.UpdateCategory(updateCategoryDto));
         }
 

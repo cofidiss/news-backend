@@ -55,21 +55,28 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
            
         }
 
-        public ResponseModel Login(LoginModel loginModel)
+        public LoginResultModel Login(LoginModel loginModel)
         {
-            var responseModel = new ResponseModel() { HasError = false, Message = "Login succesfull" };
+            var loginResultModel = new LoginResultModel() { HasError = true,Message="An Error occured during login" };
 
             var loginCheckQuery = from user in _dbContext.Set<UserEntity>()
                                      where user.UserName == loginModel.UserName && user.Password == loginModel.Password
                                      select user;
-
-            if (loginCheckQuery.ToArray().Length == 0)
+        var userEntities =   loginCheckQuery.ToArray();
+            if (userEntities.Length == 0)
             {
-                responseModel.HasError = true;
-                responseModel.Message = $"Username or password is wrong.";
-                return responseModel;
+                loginResultModel.HasError = true;
+                loginResultModel.Message = $"Could not find the user {loginModel.UserName}";
+                return loginResultModel;
             }
-            return responseModel;
+            if (userEntities.Length != 0)
+            {
+                loginResultModel.HasError = false;
+                loginResultModel.Id= userEntities.First().Id;
+                loginResultModel.Message = "Login Succesfull";
+                return loginResultModel;
+            }
+            return loginResultModel;
 
 
         }

@@ -1,7 +1,14 @@
 ﻿
+using AutoMapper;
+using DomainLayer.Model.User;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using ServicesLayer.DTO.User;
 using ServicesLayer.Services.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ApiLayer.Controllers
@@ -11,9 +18,11 @@ namespace ApiLayer.Controllers
     public class UserController : Controller
     {
         public IUserService _userService { get; set; }
-        public UserController(IUserService userService)
+        IMapper _mapper { get; set; }
+    public UserController(IUserService userService,IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
         [HttpPost(nameof(SignUp))]
         public IActionResult SignUp(SignUpDto signUpDto)
@@ -23,7 +32,14 @@ namespace ApiLayer.Controllers
         [HttpPost(nameof(Login))]
         public IActionResult Login(LoginDto loginDto)
         {
-            return Ok(_userService.Login(loginDto));
+        
+          var loginResultModel =   _userService.Login(loginDto);
+            var claims = new List<Claim> { new Claim(nameof(loginResultModel.Id), loginResultModel.Id.ToString()) };
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties();
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+       var loginResultDto =      _mapper.Map<LoginResultModel, LoginResultDto>(loginResultModel);
+            return Ok(loginResultDto);
         }
         [HttpPost(nameof(IsCategoryAdmin))]
         public async Task<IActionResult> IsCategoryAdmin(long categoryId)
