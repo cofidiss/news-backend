@@ -81,5 +81,18 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
 
 
         }
+
+        public AuthInfoModel GetAuthInfo(long userId)
+        {
+            var userEntityQuery = from user in _dbContext.Set<UserEntity>()
+                                  where user.Id == userId
+                                  select user;
+            var userEntity = userEntityQuery.ToArray().First();
+            var authInfoModel = new AuthInfoModel();
+            authInfoModel.Initials = userEntity.UserName;
+            authInfoModel.IsAuthenticated = true;
+            return authInfoModel;
+
+        }
     }
 }

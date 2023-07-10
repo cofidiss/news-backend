@@ -19,6 +19,7 @@ namespace ServicesLayer.Profiles
             CreateMap<LoginDto, LoginModel>();
             CreateMap<LoginResultModel, LoginResultDto>();
             CreateMap<SignUpResultModel, SignUpResultDto>();
+            CreateMap<AuthInfoModel, AuthInfoDto>();
             
         }
     }

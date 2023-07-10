@@ -54,5 +54,12 @@ namespace ApiLayer.Controllers
         {
             return Ok(await _userService.IsCategoryAdmin(categoryId));
         }
+        [HttpGet(nameof(GetAuthInfo))]
+        public async Task<IActionResult> GetAuthInfo()
+        { var claims = HttpContext.User.Claims;
+
+            return Ok( _userService.GetAuthInfo(claims));
+        }
+        
     }
 }

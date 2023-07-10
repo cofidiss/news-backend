@@ -13,5 +13,6 @@ namespace RepositoryLayer.RepositoryPattern.Interfaces
     {
         SignUpResultModel SignUp(SignUpModel signUpModel);
         LoginResultModel Login(LoginModel loginModel);
+        AuthInfoModel GetAuthInfo(long userId);
     }
 }

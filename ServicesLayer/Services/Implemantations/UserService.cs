@@ -57,5 +57,19 @@ namespace ServicesLayer.Services.Implemantations
             //return false;
             return true;
         }
+
+        public  AuthInfoDto GetAuthInfo(IEnumerable<Claim> claims)
+        {
+          var claimsContainId =   claims.Where(x => x.Type.Equals(nameof(LoginResultDto.Id))).ToList();
+            if (claimsContainId.Count ==0)
+            {
+                return new AuthInfoDto() {Initials=null,IsAuthenticated=false };
+
+            }
+        var userId =   long.Parse(  claimsContainId.First().Value);
+         var    authInfoModel =  _usersRepository.GetAuthInfo(userId);
+          var authInfoDto= _mapper.Map<AuthInfoModel, AuthInfoDto>(authInfoModel);
+            return authInfoDto;
+        }
     }
 }
