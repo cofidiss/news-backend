@@ -11,7 +11,7 @@ namespace ServicesLayer.Services.Interfaces
 {
     public interface IUserService
     {
-        ResponseDto SignUp(SignUpDto signUpDto);
+        SignUpResultModel SignUp(SignUpDto signUpDto);
         LoginResultModel Login(LoginDto loginDto);
         Task<bool> IsCategoryAdmin(long categoryId);
     }

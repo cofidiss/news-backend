@@ -30,15 +30,15 @@ namespace ServicesLayer.Services.Implemantations
             _httpContextAccessor = httpContextAccessor;
 
         }
-        public ResponseDto SignUp(SignUpDto signUpDto)
+        public SignUpResultModel SignUp(SignUpDto signUpDto)
         {
 
             var signUpModel = _mapper.Map<SignUpDto, SignUpModel>(signUpDto);
 
             signUpModel.Password = signUpModel.Password.GetHashAsHEXString();  
-            var responseModel = _usersRepository.SignUp(signUpModel);
-         var responseDto =   _mapper.Map<ResponseModel, ResponseDto > (responseModel);
-            return responseDto;
+            var signUpResultModel = _usersRepository.SignUp(signUpModel);
+
+            return signUpResultModel;
         }
 
         public LoginResultModel Login(LoginDto loginDto)

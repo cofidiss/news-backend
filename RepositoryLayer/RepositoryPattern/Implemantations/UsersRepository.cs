@@ -20,28 +20,28 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
         {
             _dbContext = postgreNewsDbContext;
         }
-        public ResponseModel SignUp(SignUpModel signUpModel)
+        public SignUpResultModel SignUp(SignUpModel signUpModel)
         {
-          var responseModel =  new ResponseModel() { HasError = false, Message = "SignUp is successfull" };
+          var signUpResultModel =  new SignUpResultModel() { HasError = false, Message = "SignUp is successfull" };
 
             var userNameCheckQuery = from user in _dbContext.Set<UserEntity>()
                                      where user.UserName == signUpModel.UserName
                                      select user;
-
-            if (userNameCheckQuery.ToArray().Length >0)
+            var  userEntities= userNameCheckQuery.ToArray();
+            if (userEntities.Length >0)
             {
-                responseModel.HasError = true;
-                responseModel.Message = $"Username {signUpModel.UserName} already exits.";
-                return responseModel;
+                signUpResultModel.HasError = true;
+                signUpResultModel.Message = $"Username {signUpModel.UserName} already exits.";
+                return signUpResultModel;
             }
             var emailCheckQuery = from user in _dbContext.Set<UserEntity>()
                                      where user.Email == signUpModel.Email
                                   select user;
             if (emailCheckQuery.ToArray().Length > 0)
             {
-                responseModel.HasError = true;
-                responseModel.Message = $"Email {signUpModel.Email} already exits.";
-                return responseModel;
+                signUpResultModel.HasError = true;
+                signUpResultModel.Message = $"Email {signUpModel.Email} already exits.";
+                return signUpResultModel;
             }
 
 
@@ -51,7 +51,8 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
           };
             _dbContext.Add(usersEntityToInsert);
             _dbContext.SaveChanges();
-            return responseModel;
+            signUpResultModel.Id = usersEntityToInsert.Id;
+            return signUpResultModel;
            
         }
 

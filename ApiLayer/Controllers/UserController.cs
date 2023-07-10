@@ -27,7 +27,15 @@ namespace ApiLayer.Controllers
         [HttpPost(nameof(SignUp))]
         public IActionResult SignUp(SignUpDto signUpDto)
         {
-            return Ok(_userService.SignUp(signUpDto));
+            
+
+              var signUpResultModel = _userService.SignUp(signUpDto);
+            var claims = new List<Claim> { new Claim(nameof(SignUpResultModel.Id), signUpResultModel.Id.ToString()) };
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties();
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+            var signUpResultDto = _mapper.Map<SignUpResultModel, SignUpResultDto>(signUpResultModel);
+            return Ok(signUpResultDto);
         }
         [HttpPost(nameof(Login))]
         public IActionResult Login(LoginDto loginDto)
