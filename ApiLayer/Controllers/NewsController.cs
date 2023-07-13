@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ServicesLayer.DTO.News;
@@ -29,6 +30,7 @@ namespace ApiLayer.Controllers
         {            
             return Ok( await  _newsService.GetNewsAndMetaData(id));
         }
+        [Authorize]
         [HttpPost(nameof(AddNews))]
         public async Task<IActionResult> AddNews(AddNewsDto addNewsDto)
         {

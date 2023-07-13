@@ -4,8 +4,10 @@ using DomainLayer.Model.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using ServicesLayer.DTO;
 using ServicesLayer.DTO.User;
 using ServicesLayer.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -23,6 +25,26 @@ namespace ApiLayer.Controllers
         {
             _userService = userService;
             _mapper = mapper;
+        }
+        [HttpPost(nameof(Logout))]
+        public IActionResult Logout()
+        {
+            var responseDto = new ResponseDto() {HasError=false,Message="Logout succeesfulls" };
+            try
+            {
+                HttpContext.SignOutAsync(
+      CookieAuthenticationDefaults.AuthenticationScheme).Wait(); }
+            catch(Exception e)
+            {
+                responseDto.HasError = true;
+                responseDto.Message = "logout has error";
+
+
+
+            }       
+
+         
+            return Ok(responseDto);
         }
         [HttpPost(nameof(SignUp))]
         public IActionResult SignUp(SignUpDto signUpDto)

@@ -58,7 +58,7 @@ namespace ApiLayer
 
             services.AddHttpContextAccessor();
             services.AddDbContext<PostgreNewsDbContext>(item => item.UseNpgsql(Configuration.GetConnectionString("PostgreNews")));
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => { options.ExpireTimeSpan = TimeSpan.FromMinutes(20); options.SlidingExpiration = true; });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => { options.ExpireTimeSpan = TimeSpan.FromMinutes(20); options.SlidingExpiration = true; options.AccessDeniedPath = "/asd";options.Events.OnRedirectToLogin =  x => { x.Response.StatusCode = 401;return Task.CompletedTask; };});
 
 
         }
