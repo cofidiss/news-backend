@@ -11,5 +11,6 @@ namespace DomainLayer.Model.News
         public long Id { get; set; }
         public string Header { get; set; }
         public DateTime UploadDate { get; set; }
+        public bool IsDeletable { get; set; }
     }
 }

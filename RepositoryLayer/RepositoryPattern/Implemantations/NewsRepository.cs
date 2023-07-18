@@ -3,9 +3,12 @@ using DomainLayer.Model;
 using DomainLayer.Model.Enums;
 using DomainLayer.Model.News;
 using DomainLayer.Model.NewsFile;
+using DomainLayer.Model.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Context;
+using RepositoryLayer.Extensions;
 using RepositoryLayer.RepositoryPattern.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,11 +21,17 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
     public class NewsRepository : GenericRepository<NewsEntity>, INewsRepository
     {
         IConfiguration _configuration;
+
         private readonly DbContext _dbContext;
-        public NewsRepository(PostgreNewsDbContext dbContext, IConfiguration configuration) : base(dbContext)
+        IHttpContextAccessor _httpContextAccessor;
+        public long? _userId { get; set; }
+        public NewsRepository(PostgreNewsDbContext dbContext, IConfiguration configuration, IHttpContextAccessor httpContextAccessor) : base(dbContext)
         {
             _dbContext = dbContext;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
+            _userId = httpContextAccessor.HttpContext.GetUserInfoFromContext();
+
         }
 
         public async Task<NewsAndMetaDataModel> GetNewsAndMetaData(long id)
@@ -131,12 +140,15 @@ namespace RepositoryLayer.RepositoryPattern.Implemantations
 
         public async Task<IEnumerable<NewsListForCategoryModel>> GetNewsListForCategory(long categoryId)
         {
+
            var chilcategoryIds =  (from category in _dbContext.Set<CategoryEntity>()
              where category.ParentId == categoryId
              select category.Id).ToArray();
             var newsListQuery = from news in _dbContext.Set<NewsEntity>()
+                                join categoryAdmin in _dbContext.Set<CategoryAdminEntity>() on new {news.CategoryId,UserId= _userId } equals new { categoryAdmin.CategoryId, UserId= (Nullable<long>)categoryAdmin.UserId } into grp1
+                                from  categoryAdmin in grp1.DefaultIfEmpty() 
                                            where news.CategoryId == categoryId || chilcategoryIds.Contains(news.CategoryId)
-                                select new NewsListForCategoryModel() { Id = news.Id, Header = news.Header,UploadDate=news.CreationDate };
+                                select new NewsListForCategoryModel() { Id = news.Id, Header = news.Header,UploadDate=news.CreationDate,IsDeletable= categoryAdmin == null ? false: true };
             var newsListForCategoryModelList = await newsListQuery.ToArrayAsync();
             return newsListForCategoryModelList;
         }

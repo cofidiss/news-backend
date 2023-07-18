@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.EntityConfigurations.PostgreNews
 {
-    public class BaseMap<T> : IEntityTypeConfiguration<T> where T :BaseEntity
+    public abstract class BaseMap<T> : IEntityTypeConfiguration<T> where T :BaseEntity
     {
         public virtual void Configure(EntityTypeBuilder<T> builder)
         {
